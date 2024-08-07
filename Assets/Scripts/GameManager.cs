@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayPlayerName()
     {
-        var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("EN-HI", "Player"+currentPlayer);
+        var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("EN-HI", "Player" + currentPlayer);
         currentPlayerName.text = localizedString;
     }
     private void ClearCurrentCell()

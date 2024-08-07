@@ -69,7 +69,7 @@ public class DownloadMediaHandler : MonoBehaviour
         }
 
         // Release the download handle only if it was successful
-        Addressables.Release(downloadHandle);
+       // Addressables.Release(downloadHandle);
     }
 
     private IEnumerator DownloadAssetRemote(string address, string assetType)
