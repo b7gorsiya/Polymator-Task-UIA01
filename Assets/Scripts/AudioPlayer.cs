@@ -6,22 +6,19 @@ public class AudioPlayer : MediaPlayer
 {
     private AudioSource audioSource;
     private bool isPlaying = false;
-
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
-
     void Update()
     {
-        // Check if audio finished playing
+        //Is playing
         if (isPlaying && !audioSource.isPlaying)
         {
             isPlaying = false;
             NotifyPlaybackCompleted();
         }
     }
-
     public override void Play()
     {
         if (audioSource != null)
@@ -30,7 +27,6 @@ public class AudioPlayer : MediaPlayer
             isPlaying = true;
         }
     }
-
     public override void Stop()
     {
         if (audioSource != null && isPlaying)

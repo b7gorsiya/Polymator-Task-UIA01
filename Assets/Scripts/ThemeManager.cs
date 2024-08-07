@@ -38,7 +38,6 @@ public class ThemeManager : MonoBehaviour
 
     private void ApplyTheme(ThemeData theme)
     {
-        // toggleBTNtxt.text = theme.name;
         SetLocalizedText(theme.name);
         currentTheme = theme;
         backgroundImages.ForEach(img => img.color = theme.background);

@@ -15,9 +15,6 @@ public class ProgressBar : MonoBehaviour
             progressSlider.value = progress;
         }
     }
-    // Method to indicate download start
     public void OnDownloadStarted() => this.gameObject.SetActive(true);
-
-    // Method to indicate download finished
     public void OnDownloadFinished() => this.gameObject.SetActive(false);
 }

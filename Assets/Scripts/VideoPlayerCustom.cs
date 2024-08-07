@@ -10,7 +10,7 @@ public class VideoPlayerCustom : MediaPlayer
     void Awake()
     {
         videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.loopPointReached += OnVideoFinished; // Subscribe to event
+        videoPlayer.loopPointReached += OnVideoFinished; 
     }
 
     public override void Play()

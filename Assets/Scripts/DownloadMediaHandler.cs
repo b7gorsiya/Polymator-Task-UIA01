@@ -4,33 +4,47 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Video;
-
+[System.Serializable]
+public class AssetReferenceAudioClip : AssetReferenceT<AudioClip>
+{
+    public AssetReferenceAudioClip(string guid) : base(guid) { }
+}
+[System.Serializable]
+public class AssetReferenceVideoClip : AssetReferenceT<VideoClip>
+{
+    public AssetReferenceVideoClip(string guid) : base(guid) { }
+}
 public class DownloadMediaHandler : MonoBehaviour
 {
-    [SerializeField] private string audioAddress;
-    [SerializeField] private string videoAddress;
+    [SerializeField] private AssetReferenceAudioClip audioReference; 
+    [SerializeField] private AssetReferenceVideoClip videoReference;
     [SerializeField] ProgressBar downloadProgress;
 
     public static event Action<string,object> OnDownloadComplete; // Event for download completion
 
     internal void DownloadMedia(int type) // 1 for video, 2 for audio
     {
+        AssetReference assetReference = (type == 1) ? videoReference : audioReference;
         string assetType = (type == 1) ? "Video" : "Audio";
-        string address = (type == 1) ? videoAddress : audioAddress;
-        StartCoroutine(DownloadAsset(address, assetType));
+        StartCoroutine(DownloadAsset(assetReference, assetType));
     }
 
-    private IEnumerator DownloadAsset(string address, string assetType)
+    private IEnumerator DownloadAsset(AssetReference assetReference, string assetType)
     {
+        if (!assetReference.RuntimeKeyIsValid())
+        {
+            Debug.LogError($"{assetType} reference is not valid.");
+            yield break;
+        }
         // Determine asset type for handling different download cases
         AsyncOperationHandle downloadHandle;
         if (assetType == "Audio")
         {
-            downloadHandle = Addressables.LoadAssetAsync<AudioClip>(address);
+            downloadHandle = Addressables.LoadAssetAsync<AudioClip>(assetReference);
         }
         else
         {
-            downloadHandle = Addressables.LoadAssetAsync<VideoClip>(address); // Use VideoClip for videos
+            downloadHandle = Addressables.LoadAssetAsync<VideoClip>(assetReference); // Use VideoClip for videos
         }
         downloadProgress.OnDownloadStarted();
         // Wait until the download is complete

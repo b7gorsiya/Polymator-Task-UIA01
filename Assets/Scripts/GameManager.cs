@@ -2,26 +2,34 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject cellsParent;
+    [SerializeField] GameObject cellsParent;
+    [SerializeField] TextMeshProUGUI currentPlayerName;
     private List<Button> cells;
-    public VideoPlayerCustom videoPrefab;
-    public AudioPlayer audioPrefab;
-    public ProgressBar progressBar;
-    private int currentPlayer = 1;
-    private Dictionary<int, string> moves = new Dictionary<int, string>();
-    private int[] board = new int[9]; // For a 3x3 Tic-Tac-Toe board
 
-    IMoveLogger moveLogger;
+    [Space]
+    [Header("Video Audio UI Prefab")]
+    [SerializeField] VideoPlayerCustom videoPrefab; // UI prefabs
+    [SerializeField] AudioPlayer audioPrefab;
+    [Space]
+    [SerializeField] ProgressBar progressBar;
+    [Space]
+    [SerializeField] DownloadMediaHandler downloadMediaHandler;
+
+    //Game Play fields
+    private int currentPlayer = 1;
     bool mediaPlaying = false;
     GameObject currentCell;
     int currentCellIndex;
+    private Dictionary<int, string> moves = new Dictionary<int, string>();
 
-    [SerializeField] DownloadMediaHandler downloadMediaHandler;
+    private int[] board = new int[9]; // For a 3x3 Tic-Tac-Toe board
+    IMoveLogger moveLogger;
 
     private void OnEnable()
     {
@@ -33,7 +41,7 @@ public class GameManager : MonoBehaviour
         DownloadMediaHandler.OnDownloadComplete -= HandleDownloadComplete;
     }
 
-    private void HandleDownloadComplete(string assetType,object obj)
+    private void HandleDownloadComplete(string assetType, object obj)
     {
         // Trigger media playback when download is complete
         if (currentCell != null && currentCellIndex != -1)
@@ -63,6 +71,8 @@ public class GameManager : MonoBehaviour
             cell.onClick.AddListener(() => OnCellClicked(cell.gameObject, index));
         });
         ClearCells();
+        currentPlayer = 1;
+        DisplayPlayerName();
         moveLogger = new MoveLogger();
     }
     private void ClearCells() => cells.ForEach(cell => cell.GetComponentInChildren<TextMeshProUGUI>().text = "");
@@ -74,12 +84,8 @@ public class GameManager : MonoBehaviour
 
         downloadMediaHandler.DownloadMedia(currentPlayer);
     }
-
-    private bool IsCellOccupied(int index)
-    {
-        return moves.ContainsKey(index);
-    }
-
+    #region Media Play Back
+    private bool IsCellOccupied(int index) => moves.ContainsKey(index);
     private void SetCurrentCell(GameObject cell, int index)
     {
         currentCell = cell;
@@ -97,10 +103,7 @@ public class GameManager : MonoBehaviour
         mediaPlayer.OnPlaybackCompleted += OnMediaPlaybackCompleted;
     }
 
-    private void SetMediaParent(IMediaPlayer mediaPlayer)
-    {
-        mediaPlayer.transform.parent = currentCell.transform;
-    }
+    private void SetMediaParent(IMediaPlayer mediaPlayer) => mediaPlayer.transform.parent = currentCell.transform;
 
     private void ResetMediaRectTransform(IMediaPlayer mediaPlayer)
     {
@@ -115,6 +118,7 @@ public class GameManager : MonoBehaviour
         mediaPlaying = false;
         ClearCurrentCell();
 
+        DisplayPlayerName();
         UnsubscribeFromMediaPlayback(videoPrefab);
         UnsubscribeFromMediaPlayback(audioPrefab);
     }
@@ -129,15 +133,6 @@ public class GameManager : MonoBehaviour
         moveLogger.LogMove(currentPlayer, currentCellIndex);
         CheckForWinner();
     }
-
-    private void SwitchPlayer() => currentPlayer = currentPlayer == 1 ? 2 : 1;
-
-    private void ClearCurrentCell()
-    {
-        currentCell = null;
-        currentCellIndex = -1;
-    }
-
     private void UnsubscribeFromMediaPlayback(IMediaPlayer mediaPlayer)
     {
         if (mediaPlayer != null)
@@ -145,22 +140,38 @@ public class GameManager : MonoBehaviour
             mediaPlayer.OnPlaybackCompleted -= OnMediaPlaybackCompleted;
         }
     }
+
+    #endregion
+    private void SwitchPlayer() => currentPlayer = currentPlayer == 1 ? 2 : 1;
+
+    private void DisplayPlayerName()
+    {
+        var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("EN-HI", "Player"+currentPlayer);
+        currentPlayerName.text = localizedString;
+    }
+    private void ClearCurrentCell()
+    {
+        currentCell = null;
+        currentCellIndex = -1;
+    }
+
     private void CheckForWinner()
     {
-        // Define all possible winning combinations
+        // all possible winning combinations
         int[][] winningCombinations = new int[][]
         {
-        new int[] { 0, 1, 2 }, // Top row
-        new int[] { 3, 4, 5 }, // Middle row
-        new int[] { 6, 7, 8 }, // Bottom row
-        new int[] { 0, 3, 6 }, // Left column
-        new int[] { 1, 4, 7 }, // Middle column
-        new int[] { 2, 5, 8 }, // Right column
-        new int[] { 0, 4, 8 }, // Diagonal from top-left
-        new int[] { 2, 4, 6 }  // Diagonal from top-right
+        new int[] { 0, 1, 2 }, // Top 
+        new int[] { 3, 4, 5 }, // Middle
+        new int[] { 6, 7, 8 }, // Bottom 
+        new int[] { 0, 3, 6 }, // Left 
+        new int[] { 1, 4, 7 }, // Middle 
+        new int[] { 2, 5, 8 }, // Right 
+        new int[] { 0, 4, 8 }, // from top left bottom right
+        new int[] { 2, 4, 6 }  // from top right bottom left
         };
+        //Log Move
         moveLogger.SaveMoves();
-        // Check each combination
+
         foreach (int[] combination in winningCombinations)
         {
             int a = combination[0];
@@ -169,7 +180,6 @@ public class GameManager : MonoBehaviour
 
             if (board[a] != 0 && board[a] == board[b] && board[a] == board[c])
             {
-                // We have a winner!
                 int winner = board[a]; // 1 = Player 1 (X), 2 = Player 2 (O)
                 DisplayWinner(winner);
                 return;
@@ -178,12 +188,9 @@ public class GameManager : MonoBehaviour
 
         // Check for a draw
         if (IsBoardFull())
-        {
-            DisplayWinner(0); // 0 can indicate a draw
-        }
+            DisplayWinner(0);
     }
 
-    // Check if the board is full
     private bool IsBoardFull()
     {
         foreach (int cell in board)
@@ -193,7 +200,6 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    // Display the winner or draw
     private void DisplayWinner(int winner)
     {
         if (winner == 0)
@@ -211,14 +217,12 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    // Reset the game board
     private void ResetGame()
     {
         for (int i = 0; i < board.Length; i++)
         {
             board[i] = 0;
         }
-
-        // Reset UI and game elements as needed
+        Invoke("ClearCells", 3);
     }
 }
