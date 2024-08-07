@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84604e694aec33243b0a5393d4df0994, type: 3}
+  m_Name: Light Mode
+  m_EditorClassIdentifier: 
+  background: {r: 1, g: 1, b: 1, a: 1}
+  foreground: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 1}
+  text: {r: 0, g: 0, b: 0, a: 1}
