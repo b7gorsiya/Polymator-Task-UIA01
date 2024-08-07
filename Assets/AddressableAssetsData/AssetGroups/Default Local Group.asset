@@ -22,16 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 451d2a1a64e716b478eebcea006adfeb
-    m_Address: Assets/Media/Audios/short-background-music-for-video-vlog-summer-dance-tropical-house-158706.mp3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e87f5edf7eba32e4c9ecedb0fdf2edb5
-    m_Address: Assets/Media/Videos/19073605-hd_1920_1080_30fps.mp4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1b07ed76f4fc5e74e987282ff71f062c
     m_Address: Assets/Media/Videos/20203964-uhd_3840_2160_30fps.mp4
     m_ReadOnly: 0

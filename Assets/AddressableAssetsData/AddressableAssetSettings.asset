@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,9 +35,9 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: e10057879c6e3b144b3b0e27705330bb
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: d191fe48f47592446ae60187557af508
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
@@ -68,9 +68,9 @@ MonoBehaviour:
       - m_Id: 5509db93af256f345a8d197ba2e7e8cd
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: e10057879c6e3b144b3b0e27705330bb
-        m_Value: ServerData/[BuildTarget]
+        m_Value: ServerData/[UnityEditor.EditorUserBuildSettings.activeBuildTarget]
       - m_Id: d191fe48f47592446ae60187557af508
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: https://b7gorsiya.github.io/Polymator-Task-UIA01/Data/[UnityEditor.EditorUserBuildSettings.activeBuildTarget]
     m_ProfileEntryNames:
     - m_Id: f28f1b5cb24c72e4e9f835ab175e75bb
       m_Name: BuildTarget
