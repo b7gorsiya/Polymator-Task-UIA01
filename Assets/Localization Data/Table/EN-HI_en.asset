@@ -46,6 +46,26 @@ MonoBehaviour:
     m_Localized: Player O turn
     m_Metadata:
       m_Items: []
+  - m_Id: 106241355411456
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106218672615424
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106180873547776
+    m_Localized: Game Draw !!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106120244883456
+    m_Localized: Player X Win The Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 107060041609216
+    m_Localized: Player O Win The Game
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

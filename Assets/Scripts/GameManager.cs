@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] DownloadMediaHandler downloadMediaHandler;
 
+    [Space]
+    [SerializeField] GameObject gameFinishPanel;
+    [SerializeField] TextMeshProUGUI gameStatTxt;
+
     //Game Play fields
     private int currentPlayer = 1;
     bool mediaPlaying = false;
@@ -63,19 +67,20 @@ public class GameManager : MonoBehaviour
     private void Awake() => Initilzation();
     void Initilzation()
     {
+        gameFinishPanel.SetActive(false);
         cells = cellsParent.GetComponentsInChildren<Button>().ToList();
         int count = 0;
+        ClearCells();
         cells.ForEach(cell =>
         {
             int index = count++;
             cell.onClick.AddListener(() => OnCellClicked(cell.gameObject, index));
         });
-        ClearCells();
         currentPlayer = 1;
         DisplayPlayerName();
         moveLogger = new MoveLogger();
     }
-    private void ClearCells() => cells.ForEach(cell => cell.GetComponentInChildren<TextMeshProUGUI>().text = "");
+    private void ClearCells() => cells.ForEach(cell => { cell.GetComponentInChildren<TextMeshProUGUI>().text = ""; cell.onClick.RemoveAllListeners(); });
     public void OnCellClicked(GameObject cell, int index)
     {
         if (IsCellOccupied(index) || mediaPlaying) return;
@@ -202,27 +207,32 @@ public class GameManager : MonoBehaviour
 
     private void DisplayWinner(int winner)
     {
+        string gameStatKey="Game Win 1";
         if (winner == 0)
         {
+            gameStatKey = "Game Draw";
             Debug.Log("It's a draw!");
-            // Implement draw UI logic
         }
         else
         {
+            gameStatKey = "Game Win " + winner;
             Debug.Log("Player " + winner + " wins!");
-            // Implement winner UI logic
         }
-
-        // Optionally, reset the game or prompt for a new game
-        ResetGame();
+        var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("EN-HI", gameStatKey);
+        gameStatTxt.text = localizedString;
+        gameFinishPanel.SetActive(true);
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         for (int i = 0; i < board.Length; i++)
         {
             board[i] = 0;
         }
-        Invoke("ClearCells", 3);
+        Initilzation(); 
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

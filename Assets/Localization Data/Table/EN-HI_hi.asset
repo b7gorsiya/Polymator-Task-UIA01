@@ -46,6 +46,28 @@ MonoBehaviour:
     m_Localized: "\r\u092A\u094D\u0932\u0947\u092F\u0930 O \u091F\u0930\u094D\u0928"
     m_Metadata:
       m_Items: []
+  - m_Id: 106241355411456
+    m_Localized: "\u092A\u0941\u0928\u0903 \u0906\u0930\u0902\u092D \u0915\u0930\u0947\u0902"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106218672615424
+    m_Localized: "\u092C\u093E\u0939\u0930 \u0928\u093F\u0915\u0932\u0928\u093E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106180873547776
+    m_Localized: "\r\u0916\u0947\u0932 \u0921\u094D\u0930\u093E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106120244883456
+    m_Localized: "\u092A\u094D\u0932\u0947\u092F\u0930 X  \u0928\u0947 \u0917\u0947\u092E
+      \u091C\u0940\u0924 \u0932\u093F\u092F\u093E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 107060041609216
+    m_Localized: "\u092A\u094D\u0932\u0947\u092F\u0930 O  \u0928\u0947 \u0917\u0947\u092E
+      \u091C\u0940\u0924 \u0932\u093F\u092F\u093E"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
