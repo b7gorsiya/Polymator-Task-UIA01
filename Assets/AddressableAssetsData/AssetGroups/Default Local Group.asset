@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c4826977ba789744eaaffaba02a764d2
   m_SerializeEntries:
-  - m_GUID: 22ecf438549710e458f1326d8016b16d
-    m_Address: Assets/Media/Audios/Short_O.mp3
+  - m_GUID: b15592675ea65f446a2910148a28b723
+    m_Address: Assets/Media/Audios/5Sec.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
