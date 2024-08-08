@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         });
         currentPlayer = 1;
         DisplayPlayerName();
+        moves.Clear();
         moveLogger = new MoveLogger();
     }
     private void ClearCells() => cells.ForEach(cell => { cell.GetComponentInChildren<TextMeshProUGUI>().text = ""; cell.onClick.RemoveAllListeners(); });
@@ -207,7 +208,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayWinner(int winner)
     {
-        string gameStatKey="Game Win 1";
+        string gameStatKey= "Game Draw";
         if (winner == 0)
         {
             gameStatKey = "Game Draw";
@@ -218,9 +219,9 @@ public class GameManager : MonoBehaviour
             gameStatKey = "Game Win " + winner;
             Debug.Log("Player " + winner + " wins!");
         }
+        gameFinishPanel.SetActive(true);
         var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString("EN-HI", gameStatKey);
         gameStatTxt.text = localizedString;
-        gameFinishPanel.SetActive(true);
     }
 
     public void ResetGame()
